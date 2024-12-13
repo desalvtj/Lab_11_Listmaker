@@ -2,18 +2,21 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class listMaker {
-    private static ArrayList<String> myList = new ArrayList<>();//Declaring an array list
-    private static Scanner input = new Scanner(System.in);//Declaring the scanner
+    private static ArrayList<String> myList = new ArrayList<>();
+    private static Scanner input = new Scanner(System.in);
 
     public static void main(String[] args) {
         String choice;
 
         do {
             displayMenu();
-            choice = getRegExString("Enter your choice (A, D, P, or Q): ", "[AaDdPpQq]");
+            choice = getRegExString("Enter your choice (A, I, D, P, or Q): ", "[AaIiDdPpQq]");
             switch (choice.toUpperCase()) {
                 case "A":
                     addItem();
+                    break;
+                case "I":
+                    insertItem();
                     break;
                 case "D":
                     deleteItem();
@@ -36,6 +39,7 @@ public class listMaker {
     private static void displayMenu() {
         System.out.println("Menu:");
         System.out.println("A - Add an item to the list");
+        System.out.println("I - Insert an item in the list");
         System.out.println("D - Delete an item from the list");
         System.out.println("P - Print the list");
         System.out.println("Q - Quit the program");
@@ -56,6 +60,13 @@ public class listMaker {
         int itemNumber = getRangedInt("Enter the number of the item to delete: ", 1, myList.size());
         String deletedItem = myList.remove(itemNumber - 1);
         System.out.println("'" + deletedItem + "' has been removed from the list.");
+    }
+
+    private static void insertItem() {
+        int itemNumber = getRangedInt("Enter the location of the item to insert: ", 1, myList.size());
+        String newItem = getString("Enter a new item to add: ");
+        String insertItem = myList.set(itemNumber - 1, newItem);
+        System.out.println("'" + newItem + "' has been added to the list.");
     }
 
     private static void printList() {
